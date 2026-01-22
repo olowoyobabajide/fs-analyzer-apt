@@ -30,23 +30,27 @@ Suite: stable
 Codename: stable
 Components: main
 Architectures: amd64
-Date: $(date -R)
+Date: $(date -u -R)
 EOF
 
 # Calculate hashes for the Packages files relative to dists/stable
 # This is a simplified Release generation
 cd "$DIST_DIR"
 {
-  echo "MD5Sum:"
-  md5sum "main/binary-amd64/Packages" | awk '{print " " $1 " " $2}'
-  md5sum "main/binary-amd64/Packages.gz" | awk '{print " " $1 " " $2}'
-  echo "SHA1:"
-  sha1sum "main/binary-amd64/Packages" | awk '{print " " $1 " " $2}'
-  sha1sum "main/binary-amd64/Packages.gz" | awk '{print " " $1 " " $2}'
   echo "SHA256:"
-  sha256sum "main/binary-amd64/Packages" | awk '{print " " $1 " " $2}'
-  sha256sum "main/binary-amd64/Packages.gz" | awk '{print " " $1 " " $2}'
+  for f in "main/binary-amd64/Packages" "main/binary-amd64/Packages.gz"; do
+      size=$(stat -c%s "$f")
+      sha256sum "$f" | awk -v s="$size" '{print " " $1 " " s " " $2}'
+  done
+  echo "SHA512:"
+  for f in "main/binary-amd64/Packages" "main/binary-amd64/Packages.gz"; do
+      size=$(stat -c%s "$f")
+      sha512sum "$f" | awk -v s="$size" '{print " " $1 " " s " " $2}'
+  done
 } >> "$DIST_DIR/Release"
+
+# Add Valid-Until (1 year)
+echo "Valid-Until: $(date -u -R -d '+1 year')" >> "$DIST_DIR/Release"
 
 # Sign Release
 echo "Signing Release..."
@@ -54,7 +58,7 @@ echo "Signing Release..."
 rm -f Release.gpg InRelease
 
 # Sign
-gpg --default-key "olowoyobabajide@gmail.com" -abs -o Release.gpg Release
-gpg --default-key "olowoyobabajide@gmail.com" --clearsign -o InRelease Release
+gpg --default-key "olowoyobabajide@gmail.com" --digest-algo SHA512 -abs -o Release.gpg Release
+gpg --default-key "olowoyobabajide@gmail.com" --digest-algo SHA512 --clearsign -o InRelease Release
 
 echo "Done."
