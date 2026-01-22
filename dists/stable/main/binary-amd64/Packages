@@ -1,16 +1,16 @@
 Package: fs-analyzer
 Architecture: amd64
-Version: 1.0.1
+Version: 1.0.2
 Priority: optional
 Section: security
 Maintainer: Jyde <olowoyobabajide@gmail.com>
 Depends: libxml2, libzip5, libssl3, libc6
-Filename: ./pool/main/f/fs-analyzer/fs-analyzer_1.0.1.deb
-Size: 22456
-MD5sum: 3e6237cbe19d910712edc1c056aeace1
-SHA1: ee17c2022d606ab7dbb352ce92971b1dc89510b2
-SHA256: 9f323f1cbfd8cd1adf01009b6205ce760ffbc99c3e1df5e8f89817f5e74dc752
-SHA512: 9bcdce73df9524392d88c6056b16394e99046aade1d5ddfd9193ac5347b11065dd9b4b2d5382328941d2c21d8f9104ee2d11d87995e1b72e8ab2be57f2763ad0
+Filename: ./pool/main/f/fs-analyzer/fs-analyzer_1.0.2.deb
+Size: 22492
+MD5sum: 203319be8e0c396d2f6daa063ecad5c1
+SHA1: 2fc30a57ca0a8c6562da8d30fc5cfc9d9cac3abc
+SHA256: c8ab9cf3a468e4cb7a4d8f1cf559c014100f69b7e95f1a2f726d5b8fe5f75198
+SHA512: 9fcca12a5d6a75245fee041e243a24fcf2b6ff0901de8726ce3cbd2439e90a1f39b154d6b2f4fc1c4399417c4dd7ec9e1b3b081d23fc094b169eb4da22492490
 Description: Filesystem vulnerability and malware scanner
  A CLI tool that scans files and applications for
  common security issues and suspicious patterns.
